@@ -1,0 +1,24 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Embaixo vamos criar o banco de dados para a notificação. Primeiro colocamos o nome da nossa coluna e o formato que irá ter. Id é o id da nossa linha, recipientId será o recebimento por id da notificação, content será o conteúdo da nossa notificação, category é a categoria da nossa notificação, readAt é se a nossa notificaçaõ foi lida e createdAt é quando foi criada a notificação.
+// Temos que criar o indice para deixar claro que vamos buscar tudo de somente um usuário, deixando que podemos buscar por algum campo.
+
+model Notification {
+  id String @id
+  recipientId String
+  content String
+  category String
+  readAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([recipientId])
+}
