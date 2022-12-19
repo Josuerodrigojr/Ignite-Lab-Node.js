@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { randomUUID } from 'node:crypto';
+
 import { Replace } from './../../helpers/Replace';
 
 import { Content } from './content';
@@ -13,16 +15,23 @@ export class NotificationProps {
 }
 
 export class Notification {
+  private _id: string
   private props: NotificationProps;
 
   constructor(props: Replace<NotificationProps, {createdAt?: Date}>) {
+    this._id = randomUUID()
     this.props = {...props,
     createdAt: props.createdAt ?? new Date(),}
+  }
+
+  public get id(){
+    return this.id
   }
 //Lembrando que set é o recebimento de dados e o get é a visualização de dados para o usuário.
   public set content(content:Content){
     this.props.content = content
   }
+
 
   
   public get content():Content{

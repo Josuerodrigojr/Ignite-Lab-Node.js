@@ -1,9 +1,15 @@
 /* eslint-disable prettier/prettier */
-
+import { InMemoryNotificationsRepository } from './../../../test/repositories/in-memory-notifications-repository';
 import { SendNotification } from './send-notification';
+
+
+
+
 describe('Mandando uma notificação', ()=>{
   it('Testando o envio de uma notificação', async ()=>{
-const sendNotification = new SendNotification();
+
+    const notificationsRepository = new InMemoryNotificationsRepository();
+    const sendNotification = new SendNotification(notificationsRepository);
 
 const {notification} = await sendNotification.execute({
   category: 'social',
@@ -11,6 +17,7 @@ const {notification} = await sendNotification.execute({
   recipientId: 'hsdjdhsjak'
 
 })
-expect(notification).toBeTruthy();
+expect(notificationsRepository.notifications).toHaveLength(1)
+expect(notificationsRepository.notifications[0]).toEqual(notification)
   })
 })
