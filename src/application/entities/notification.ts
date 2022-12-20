@@ -11,6 +11,7 @@ export class NotificationProps {
   content: Content;
   category: string;
   readAt?: Date | null;
+  canceledAt?: Date | null;
   createdAt: Date;
 }
 
@@ -25,7 +26,7 @@ export class Notification {
   }
 
   public get id(){
-    return this.id
+    return this._id
   }
 //Lembrando que set é o recebimento de dados e o get é a visualização de dados para o usuário.
   public set content(content:Content){
@@ -60,6 +61,14 @@ export class Notification {
 
   public get readAt(): Date | null | undefined{
     return this.props.readAt
+  }
+
+  public cancel(){
+    this.props.canceledAt = new Date();
+  }
+
+  public get canceledAt(): Date | null | undefined{
+    return this.props.canceledAt
   }
 
 
